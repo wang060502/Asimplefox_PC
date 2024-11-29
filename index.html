@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asimplefox</title>
+    <script>
+        // 监控所有资源加载完成
+        window.addEventListener('load', () => {
+          // 创建脚本元素
+          const script = document.createElement('script');
+          script.src = 'https://cdn.staticfile.net/translate.js/3.5.2/translate.js';
+          script.onload = () => {
+            // 确保脚本加载完成后再执行翻译相关代码
+            translate.language.setLocal('chinese simplified'); // 设置当前网页的默认语种
+            translate.service.use('client.edge');
+            translate.request.listener.start(); // 监控页面变化，自动翻译变化部分
+            translate.setAutoDiscriminateLocalLanguage(); // 自动识别用户的国家并切换语言
+            translate.selectLanguageTag.show = false;
+            translate.execute(); // 执行翻译操作，显示语言选择
+          };
+          document.body.appendChild(script);
+        });
+      </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
