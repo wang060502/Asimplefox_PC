@@ -43,7 +43,20 @@
           </div>
         </div>
       </div>
+      <!-- 历史记录 -->
 
+      <div class="recommend-section">
+    <!-- 最新短剧标题 -->
+    <h2 class="title">历史记录</h2>
+
+    <!-- 宫格列表 -->
+    <div class="grid-container">
+      <div class="grid-item" v-for="(item, index) in newlist" :key="index" @click="goplaypage(item.id,item.ftype)">
+        <img :src="item.icon" :alt="item.name" class="grid-image" loading="lazy"/>
+        <div class="item-title">{{ item.name }}</div>
+      </div>
+    </div>
+  </div>
 
     </div>
     <FooterComponent></FooterComponent>
@@ -59,6 +72,7 @@ import { TinyNotify } from '@opentiny/vue'
 import { useAuthStore } from '../../stores/auth';
 import { useRouter } from 'vue-router';
 import {getuserInfo,getinviteall,PostAvatar} from '@/api/login'
+import image3 from "@/assets/image3.jpg";
 const authStore = useAuthStore();
 const router = useRouter();
 
@@ -72,7 +86,18 @@ const user = ref({
 });
 const inviteCode =ref('')
 const isVip =ref(false)
-
+const newlist = ref([
+  { icon: image3, name: '至尊丐婿' },
+  { icon: image3, name: '至尊丐婿' },
+  { icon: image3, name: '至尊丐婿' },
+  { icon: image3, name: '至尊丐婿' },
+  { icon: image3, name: '至尊丐婿' },
+  { icon: image3, name: '至尊丐婿' },
+  { icon: image3, name: '至尊丐婿' },
+  { icon: image3, name: '至尊丐婿' },
+  { icon: image3, name: '至尊丐婿' },
+  { icon: image3, name: '至尊丐婿' },
+]);
 const getuserinfo =async ()=>{
   const res = await getuserInfo()
   console.log(res)
@@ -352,6 +377,8 @@ html{
 
 
 
+
+
 /* 响应式布局 */
 @media screen and (max-width: 768px) {
   .mian {
@@ -394,6 +421,117 @@ html{
 
   .user-details p {
     font-size: 0.75rem;
+  }
+}
+.recommend-section {
+  max-width: 1200px;
+  height: auto;
+  margin: 0px auto; /* 上下各20px，左右自动居中 */
+  padding: 20px;
+}
+
+
+.title {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 每行6个 */
+  gap: 20px;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  white-space: nowrap; /* 禁止换行 */
+  overflow: hidden; /* 隐藏超出部分 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+
+.grid-image {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-title {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  font-size: 14px;
+  color: white;
+  white-space: nowrap; /* 禁止换行 */
+  overflow: hidden; /* 隐藏超出部分 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+/* 宫格 */
+@media screen and (max-width: 1200px) {
+  .grid-container {
+
+  }
+  .grid-image {
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .grid-container {
+  margin: 0 auto;  /* 居中对齐 */
+}
+.grid-item {
+  color: white;
+  text-align: center;
+  word-wrap: break-word;
+  word-break: break-word;
+  border-radius: 8px;
+  box-sizing: border-box; /* 确保内边距不会影响网格大小 */
+}
+
+
+  .grid-image {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr); /* 每行显示3个 */
+  }
+  .grid-image {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .grid-container {
+    width: 315px;
+    grid-template-columns: repeat(3, 1fr); /* 每行显示2个 */
+  }
+  .grid-image {
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .grid-container {
+    width: 260px;
+    grid-template-columns: repeat(2, 1fr); /* 每行显示1个 */
+  }
+  .grid-image {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
   }
 }
 </style>

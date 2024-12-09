@@ -14,7 +14,7 @@
           <li :class="{ active: isActive('/comic') }" @click="goTo('/comic')">动漫</li>
           <li :class="{ active: isActive('/bloglist') }" @click="goTo('/bloglist')">博客</li>
           <li :class="{ active: isActive('/userinfo') }" @click="goTo('/userinfo')">个人中心</li>
-          <li :class="{ active: isActive('/subscribe') }" @click="goTo('/subscribe')">会员订阅</li>
+          <!-- <li :class="{ active: isActive('/subscribe') }" @click="goTo('/subscribe')">会员订阅</li> -->
         </ul>
       </div>
 

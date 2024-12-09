@@ -61,3 +61,8 @@ export const PostAvatar= (formData:FormData)=>{
     headers: { 'Content-Type': 'multipart/form-data' }
   })
 }
+
+//心跳keepalive
+export const Getkeepalive=()=>{
+  return request.get('/api/counts/keepalive')
+}

@@ -48,7 +48,7 @@
             </p>
           </div>
            <!-- 分享按钮 -->
-           <button class="share-button" @click="sharePage">分享</button>
+           <button class="share-button" @click="sharePage">想知道完整版？联系我们，马上为您提供！</button>
 
           <!-- 剧集列表 -->
           <div class="episodes-section">
@@ -228,7 +228,10 @@ async function getVediodetail(id:number){
 
 const loadSubtitles = async(videoUrl:string)=>{
   const subtitleUrl = videoUrl.replace('.mp4', '-en.json');
-  const proxyUrl = subtitleUrl.replace('http://139.196.195.212:8081', '/api');
+  const currentOrigin = window.location.origin; // 获取当前环境的域名
+  const proxyUrl = subtitleUrl.replace('http://139.196.195.212:8081', `${currentOrigin}/api`);
+  console.log(proxyUrl);
+
   // console.log(subtitleUrl);
   // 使用 fetch 请求字幕文件
   const response = await fetch(proxyUrl);
