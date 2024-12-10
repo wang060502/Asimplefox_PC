@@ -49,13 +49,20 @@
     <!-- 最新短剧标题 -->
     <h2 class="title">历史记录</h2>
 
-    <!-- 宫格列表 -->
-    <div class="grid-container">
-      <div class="grid-item" v-for="(item, index) in newlist" :key="index" @click="goplaypage(item.id,item.ftype)">
-        <img :src="item.icon" :alt="item.name" class="grid-image" loading="lazy"/>
-        <div class="item-title">{{ item.name }}</div>
+      <!-- 空状态提示 -->
+<div v-if="!hsitorylist || hsitorylist.length === 0" class="empty-state">
+  <p>您还没有观看任何影视，快去探索吧！</p>
+  <p>这里有海量精彩内容等着您，点击下方按钮立即开始观看。</p>
+  <button class="explore-button" @click="gotoRecommendationPage">去逛逛</button>
+</div>
+
+      <!-- 宫格列表 -->
+      <div v-else class="grid-container">
+        <div class="grid-item" v-for="(item, index) in hsitorylist" :key="index" @click="goplaypage(item.vid,item.ftype)">
+          <img :src="item.surl" :alt="item.vname" class="grid-image" loading="lazy" />
+          <div class="item-title">{{ item.vname }}</div>
+        </div>
       </div>
-    </div>
   </div>
 
     </div>
@@ -71,7 +78,7 @@ import { onMounted, ref,watch } from 'vue';
 import { TinyNotify } from '@opentiny/vue'
 import { useAuthStore } from '../../stores/auth';
 import { useRouter } from 'vue-router';
-import {getuserInfo,getinviteall,PostAvatar} from '@/api/login'
+import {getuserInfo,getinviteall,PostAvatar,Gethistory} from '@/api/login'
 import image3 from "@/assets/image3.jpg";
 const authStore = useAuthStore();
 const router = useRouter();
@@ -86,7 +93,7 @@ const user = ref({
 });
 const inviteCode =ref('')
 const isVip =ref(false)
-const newlist = ref([
+const hsitorylist = ref([
   { icon: image3, name: '至尊丐婿' },
   { icon: image3, name: '至尊丐婿' },
   { icon: image3, name: '至尊丐婿' },
@@ -192,8 +199,30 @@ const loginout =()=>{
   })
   router.push('/');
 }
+ const gotoRecommendationPage=()=> {
+    router.push('/'); // 跳转到推荐页面
+}
+
+//获取历史记录
+const getuserhistory =async ()=>{
+  const res = await Gethistory()
+  console.log(res)
+  hsitorylist.value=res
+}
+const goplaypage =(id: number,ftype:number)=>{
+  const data={
+    id:id,ftype:ftype
+  }
+  console.log(data);
+  const params = JSON.stringify(data)
+  console.log(params);
+
+  router.push('/Playpage/'+params)
+
+}
 onMounted(()=>{
   getuserinfo()
+  getuserhistory()
 })
 </script>
 
@@ -533,6 +562,32 @@ html{
     height: 80%;
     object-fit: cover;
   }
+}
+.empty-state {
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+.empty-state .empty-image {
+  width: 150px;
+  margin-bottom: 20px;
+}
+.empty-state p {
+  font-size: 16px;
+  margin: 10px 0;
+}
+.explore-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+.explore-button:hover {
+  background-color: #0056b3;
 }
 </style>
 

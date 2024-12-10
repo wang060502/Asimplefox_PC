@@ -66,3 +66,9 @@ export const PostAvatar= (formData:FormData)=>{
 export const Getkeepalive=()=>{
   return request.get('/api/counts/keepalive')
 }
+
+
+//用户历史记录
+export const Gethistory =()=>{
+  return request.get('/user/vid/history')
+}
