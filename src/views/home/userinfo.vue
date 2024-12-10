@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      <!-- 历史记录1 -->
+      <!-- 历史记录 -->
       <div class="recommend-section">
     <!-- 最新短剧标题 -->
     <h2 class="title">历史记录</h2>
